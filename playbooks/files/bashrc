@@ -1,0 +1,61 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+set -o vi
+
+# User specific PS1
+export HOST=$(hostname -s)
+export PS1='
+${BOLD}${PWD}${REG}
+${LOGNAME}($HOST):'
+
+if which go > /dev/null; then
+  export GOPATH=~/gocode
+fi
+
+# User specific environment and startup programs
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+if which ruby > /dev/null && which gem > /dev/null; then
+    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+
+export EDITOR=vim
+export ssh_key_path="~/.ssh/rean"
+
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export WORKON_HOME=~/envs
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+
+# Google Cloud SDK.
+[ -f ~/google-cloud-sdk/path.bash.inc ] && source ~/google-cloud-sdk/path.bash.inc
+[ -f ~/google-cloud-sdk/completion.bash.inc ] && source ~/google-cloud-sdk/completion.bash.inc
+
+# Docker
+if docker-machine ls > /dev/null; then
+  eval $(docker-machine env default)
+fi
+
+# Unlimited History!
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="[%m-%d-%R %r] "
+
+# User specific alias'
+alias l='ls -lrth'
+alias ll='ls -lh'
+alias la='ls -lah'
+alias cl='clear'
+alias cdscripts='cd ~/scripts'
+alias cdgit='cd ~/src'
+alias cdsrc='cd ~/src'
+alias cditskarma='cd ~/src/itskarma'
+alias cdrean='cd ~/src/reancloud'
+alias gs='git status'
+alias gb='git branch'

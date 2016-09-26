@@ -1,0 +1,104 @@
+--- # Manage homebrew packages using ansible
+- hosts: localhost
+  tasks:
+
+# Copy config files
+  - name: copy bash_profile
+    copy: src=files/bash_profile dest=~/.bash_profile
+  - name: copy bashrc
+    copy: src=files/bashrc dest=~/.bashrc
+
+# homebrew
+  - name: Update homebrew and upgrade all
+    homebrew: update_homebrew=yes upgrade_all=yes
+
+  - name: Brew casks
+    homebrew_cask: name={{ item }} state=present
+    with_items:
+      - gitup
+      - vagrant
+      - chefdk
+      - atom
+      - yakyak
+      - sequel-pro
+      - psequel
+      - nylas-n1
+      - iterm2
+      - firefox
+      - google-chrome
+      - alfred
+      - dropbox
+      - shiftit
+      - 1password
+      - discord
+      - slack
+      - hipchat
+      - razer-synapse
+      - virtualbox
+      - evernote
+      - java
+
+  - name: Install packages
+    homebrew: name={{ item }} state=latest
+    with_items:
+      - git
+      - gcc
+      - golang
+      - terraform
+      - packer
+      - vault
+      - consul
+      - ansible
+      - docker
+      - docker-machine
+      - docker-compose
+      - jq
+      - keybase
+      - gpg
+
+# install ruby gems
+  - name: install ruby gems
+    gem: name={{ item }} state=latest
+    with_items:
+      - jekyll
+
+# pip/virtualenv
+  - name: install pip via easy_install
+    command: sudo easy_install pip
+
+  - name: Install global packages via pip
+    pip: name={{ item }} state=latest extra_args=--user
+    with_items:
+      - pip
+      - virtualenv
+      - virtualenvwrapper
+      - awscli
+      - saws
+      - boto
+
+  - file: path=~/envs state=directory mode=0755
+#  - name: Manually create dev virtualenv
+#    command: virtualenv ~/envs/dev -p python2.7 creates="~/envs/dev"
+
+#  - name: Install packages into dev virtualenv
+#    pip: name={{ item }} state=latest virtualenv=dev
+#    with_items:
+#     - awscli
+#     - saws
+#     - boto
+
+# Install atom packages
+  - name: Install atom packages
+    command: apm install vim-mode
+  - name: Intsall atom jekyll
+    command: apm install jekyll
+  - name: Intsall atom go-plus
+    command: apm install go-plus
+  - name: Intsall atom linter
+    command: apm install linter
+  - name: Intsall atom linter-js-yaml
+    command: apm install linter-js-yaml
+  - name: Intsall atom linter-rubocop
+    command: apm install language-terraform
+  - name: Intsall atom language-terraform
+    command: apm install linter-rubocop
