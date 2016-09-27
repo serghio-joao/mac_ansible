@@ -9,13 +9,13 @@ Mac laptop setup using ansible
 3. Install ansible via homebrew  
 ```brew install ansible```
 
-4. Create src/itskarma directory  
-```mkdir -p ~/src/itskarma```
+4. Create src/mac_ansible directory  
+```mkdir -p ~/src/mac_ansible```
 
-5. Clone this repo in ~/src/itskarma and cd into it  
-```cd ~/src/itskarma```  
-```git clone https://github.com/ItsKarma/setup.git```
-```cd ~/src/itskarma/setup```
+5. Clone this repo in ~/src/mac_ansible and cd into it  
+```cd ~/src/mac_ansible```  
+```git clone https://github.com/mac_ansible/setup.git```
+```cd ~/src/mac_ansible/setup```
 
 6. Run ansible-playbook  
 ```ansible-playbook playbooks/setup.yml```
