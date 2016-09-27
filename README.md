@@ -14,7 +14,7 @@ Mac laptop setup using ansible
 
 5. Clone this repo in ~/src/mac_ansible and cd into it  
 ```cd ~/src/mac_ansible```  
-```git clone https://github.com/mac_ansible/setup.git```
+```git clone https://github.com/serghio-joao/mac_ansible.git```
 ```cd ~/src/mac_ansible/setup```
 
 6. Run ansible-playbook  
